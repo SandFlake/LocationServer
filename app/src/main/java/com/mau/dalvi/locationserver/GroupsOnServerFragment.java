@@ -129,22 +129,21 @@ public class GroupsOnServerFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String groupName = parent.getItemAtPosition(position).toString();
-            Log.d(TAG, "onItemClick: group clicked = " + groupName);
 
                 controller.groupJoinedClicked(groupName, username);
                 controller.getGroupInfo(groupName);
-
-            Log.d(TAG, "onItemClick: not crashing uet" + groupName);
         }
     }
 
-  public void setTvStatus(){
+  public void setTvStatus(String message){
+        tvStatus.setText(message);
 
   }
 
     public void showMessage(String message){
+        tvStatus.setText(message);
         Log.d(TAG, "showMessage: somehow" + message);
-        // Toast.makeText(getContext(), " Unregistered: " + message, Toast.LENGTH_SHORT).show();
+
 
     }
 

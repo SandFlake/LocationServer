@@ -54,6 +54,11 @@ public class HomePageFragment extends Fragment {
 
     }
 
+    public void setText(double latitude, double longitude){
+        tv1.setText("You're at: " + latitude +", " + longitude);
+
+    }
+
     private class ButtonListener implements View.OnClickListener {
 
         @Override

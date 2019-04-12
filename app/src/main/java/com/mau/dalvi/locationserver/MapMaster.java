@@ -68,7 +68,7 @@ public class MapMaster implements OnMapReadyCallback {
         if(mMap != null ){
             mMap.clear();
             addMarkers();
-          // addSelfMarker();
+           addSelfMarker();
         }
 
 

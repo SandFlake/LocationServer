@@ -117,6 +117,7 @@ public class Controller {
     public void btnFindMeClicked() {
         latitude = myLocationHandler.getLatitude();
         longitude = myLocationHandler.getLongitude();
+        homePageFragment.setText(latitude, longitude);
     }
 
     public void btnMapClicked() {
@@ -131,6 +132,7 @@ public class Controller {
         Log.d(TAG, "btnRegisterGroupClicked: " + groupName + " " + username);
         mainActivity.setFragment(groupsOnServerFragment, true);
         groupsOnServerFragment.setController(this);
+        groupsOnServerFragment.showMessage("You're registered to" + groupName);
         partOfGroup = true;
 
     }
@@ -152,6 +154,7 @@ public class Controller {
         if (!partOfGroup) {
             serverConnection.registerNewGroup(groupname, username);
             partOfGroup = true;
+            groupsOnServerFragment.showMessage("You joined " + groupname);
 
         } else {
             unRegisterFromGroup();
@@ -165,6 +168,7 @@ public class Controller {
         serverConnection.unregisterGroupOnServer();
         serverConnection.stopSendLocation();
         partOfGroup = false;
+        groupsOnServerFragment.showMessage("You've unregistered. Click again to join a new group");
         currentGroup = "";
         mapMaster.setMarkers(new Members[0]);
         mapMaster.updateMap();

@@ -37,15 +37,17 @@
 
     <Button
         android:id="@+id/btnMap"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:background="@color/colorAccent"
         android:text="Find My Friends!" />
 
     <TextView
         android:id="@+id/tvStatus"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_gravity="center"
+        android:text="You belong to" />
 </LinearLayout>
 
