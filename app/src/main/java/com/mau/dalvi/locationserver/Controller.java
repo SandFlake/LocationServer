@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
@@ -125,8 +126,17 @@ public class Controller {
         mapMaster.setController(this);
         mapMaster.updateMap();
         Log.d(TAG, "btnMapClicked: my controller location" + getMyLongitude() + " " + getMyLatitude());
+        currentFrag = "mapFragment";
     }
 
+    public void btnGroupMapClicked() {
+        mainActivity.setFragment(mapFragment, true);
+        mapMaster.setController(this);
+        mapMaster.setMarkers(new Members[0]);
+        mapMaster.updateMap();
+        currentFrag = "mapFragment";
+
+    }
     public void btnRegisterGroupClicked(String groupName) {
         serverConnection.registerNewGroup(groupName, username);
         Log.d(TAG, "btnRegisterGroupClicked: " + groupName + " " + username);
@@ -134,17 +144,21 @@ public class Controller {
         groupsOnServerFragment.setController(this);
         groupsOnServerFragment.showMessage("You're registered to" + groupName);
         partOfGroup = true;
+        mapMaster.setMarkers(new Members[0]);
+        mapMaster.updateMap();
 
     }
 
     public void btnSignInClicked() {
         mainActivity.setFragment(homePageFragment, true);
         homePageFragment.setController(this);
+        currentFrag = "homePageFragment";
     }
 
     public void btnViewGroupsClicked() throws IOException {
         mainActivity.setFragment(groupsOnServerFragment, true);
         groupsOnServerFragment.setController(this);
+        currentFrag = "groupsOnServerFragment";
         getAllGroups();
     }
 
@@ -155,6 +169,7 @@ public class Controller {
             serverConnection.registerNewGroup(groupname, username);
             partOfGroup = true;
             groupsOnServerFragment.showMessage("You joined " + groupname);
+            mapMaster.updateMap();
 
         } else {
             unRegisterFromGroup();
@@ -175,7 +190,7 @@ public class Controller {
     }
 
     public void getGroupInfo(String groupname) {
-        Log.d(TAG, "getGroupInfo: banana " + groupname);
+        Log.d(TAG, "getGroupInfo: " + groupname);
         serverConnection.requestGroupInfo(groupname);
 
     }
@@ -191,6 +206,13 @@ public class Controller {
 
     void setGroupLocations(Members[] memberInfo) {
         mapMaster.setMarkers(memberInfo);
+        runOnUIThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              mapMaster.updateMap();
+                          }
+                      }
+        );
         if (currentFrag.equals("mapFragment")) {
             runOnUIThread(new Runnable() {
                 @Override

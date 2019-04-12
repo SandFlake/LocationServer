@@ -300,7 +300,8 @@ public class ServerConnection {
     }
 
     private void parseJsonUnregister(JSONObject jsonObject) {
-        controller.showMessage(jsonObject.toString());
+        Log.d(TAG, "parseJsonUnregister: " + jsonObject.toString());
+        //controller.showMessage(jsonObject.toString());
     }
 
 

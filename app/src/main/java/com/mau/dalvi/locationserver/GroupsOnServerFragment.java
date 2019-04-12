@@ -118,7 +118,7 @@ public class GroupsOnServerFragment extends Fragment {
             } else if (v == btnBack){
                 controller.btnBackClicked();
             } else if (v == btnMapTime){
-                controller.btnMapClicked();
+                controller.btnGroupMapClicked();
             }
         }
     }
